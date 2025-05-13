@@ -28,4 +28,5 @@ const router = express.Router();
 
 router.post("/register", asyncHandler(user.register));
 
+
 export default router;

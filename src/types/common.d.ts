@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export interface IUser extends Document {
   username: string;
@@ -14,4 +14,12 @@ export interface IUser extends Document {
   generateRefreshToken(): Promise<string>;
   createdAt: Date;
   updatedAt: Date;
+}
+
+interface IToken extends Document {
+  userId: mongoose.Types.ObjectId;
+  tokenHash: string;
+  type: "email_verification" | "password_reset" | "otp" | string;
+  expiresAt: Date;
+  createdAt: Date;
 }

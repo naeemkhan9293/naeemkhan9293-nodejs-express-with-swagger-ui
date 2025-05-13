@@ -4,6 +4,7 @@ const serverConfig = Object.freeze({
   accessTokenSecret: "secret",
   refreshTokenExpiration: "7d",
   accessTokenExpiration: "1d",
+  emailSender: process.env.EMAIL_SENDER,
 });
 
 export default serverConfig;

@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import userRepos from "#src/repos/user.repos";
 import { InternalServerError, UnauthorizedError } from "#src/error/AppError";
 import ApiResponse from "#src/utils/ApiResponse";
+import { generateMailOptions } from "#src/constants/mailOptions";
+import { sendEmails } from "#src/services/sendEmail";
+import { generateOtpToken } from "#src/utils/utils";
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -19,7 +22,13 @@ const register = async (req: Request, res: Response) => {
           201
         )
       );
-      
+    const otpObj = generateOtpToken();
+    const mailOptions = await generateMailOptions("otp", user.email, {
+      otpCode: otpObj.otp,
+    });
+
+    await sendEmails(mailOptions);
+
     return;
   } catch (error: unknown) {
     if (error instanceof Error) {
