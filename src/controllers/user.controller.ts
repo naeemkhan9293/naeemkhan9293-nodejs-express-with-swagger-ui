@@ -10,7 +10,17 @@ const register = async (req: Request, res: Response) => {
       throw new UnauthorizedError("You are not authorized to create an admin account");
     }
     const user = await userRepos.createUser(req.body);
-    return res.status(201).json(ApiResponse.success("User created successfully", user, 201));
+    res
+      .status(201)
+      .json(
+        ApiResponse.success(
+          "Account created successfully Please verify your account to continue",
+          user,
+          201
+        )
+      );
+      
+    return;
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new InternalServerError(error.message);

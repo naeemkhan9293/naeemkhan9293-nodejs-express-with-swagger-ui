@@ -20,6 +20,15 @@ const userSchema: Record<string, OpenAPIV3.SchemaObject> = {
         format: "password",
         example: "strongpassword123",
       },
+      role: {
+        type: "string",
+        enum: ["customer", "seller", "admin", "superadmin"],
+        example: "customer",
+      },
+      phone: {
+        type: "string",
+        example: "+1234567890",
+      },
     },
   },
 };

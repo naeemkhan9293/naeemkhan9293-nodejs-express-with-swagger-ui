@@ -5,11 +5,13 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: "customer" | "seller" | "admin" | "superadmin" | string;
-  avatar?: string;
-  phone?: string;
-  verified?: boolean;
+  avatar: string;
+  phone: string;
+  verified: boolean;
+  refreshToken: string;
   comparePassword(password: string): Promise<boolean>;
   generateAccessToken(): Promise<string>;
-  createdAt?: Date;
-  updatedAt?: Date;
+  generateRefreshToken(): Promise<string>;
+  createdAt: Date;
+  updatedAt: Date;
 }

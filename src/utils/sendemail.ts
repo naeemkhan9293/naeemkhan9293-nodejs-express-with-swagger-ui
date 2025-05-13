@@ -1,10 +1,5 @@
 import { createTransport } from "nodemailer";
 
-// WARNING: Hardcoding credentials like clientId, clientSecret, and refreshToken
-// directly in your code is highly insecure and NOT recommended for production.
-// These should be stored securely, for example, in environment variables or a secrets manager.
-// This example uses hardcoded values as per your request for demonstration.
-
 const transporter = createTransport({
   service: "gmail",
   auth: {
