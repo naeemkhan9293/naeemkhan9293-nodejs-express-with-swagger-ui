@@ -1,0 +1,12 @@
+# Build output
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Coverage directory
+coverage/
+
+# Configuration files
+*.config.js
