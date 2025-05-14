@@ -11,13 +11,24 @@ if (!fs.existsSync(logsDir)) {
 }
 
 // Define log format
-
 const logFormat = winston.format.combine(
   winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
   winston.format.errors({ stack: true }),
   winston.format.splat(),
-  winston.format.printf(({ level, message, timestamp, stack }) => {
-    return `${timestamp} [${level.toUpperCase()}]: ${message} ${stack ? "\n" + stack : ""}`;
+  winston.format.printf(info => {
+    const { level, message, timestamp, stack, ...metadata } = info;
+    let logMessage = `${timestamp} [${level.toUpperCase()}]: ${message}`;
+    if (stack) {
+      logMessage = `${logMessage}\n${stack}`;
+    }
+    if (Object.keys(metadata).length > 0) {
+      try {
+        logMessage = `${logMessage} ${JSON.stringify(metadata, null, 2)}`;
+      } catch (e) {
+        logMessage = `${logMessage} [Metadata could not be stringified]`;
+      }
+    }
+    return logMessage;
   })
 );
 

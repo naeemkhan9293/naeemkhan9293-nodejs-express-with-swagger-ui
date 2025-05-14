@@ -4,11 +4,11 @@ import { OpenAPIV3 } from "openapi-types";
 const userSchema: Record<string, OpenAPIV3.SchemaObject> = {
   User: {
     type: "object",
-    required: ["name", "email", "password"],
+    required: ["username", "email", "password"],
     properties: {
-      name: {
+      username: {
         type: "string",
-        example: "John Doe",
+        example: "JohnDoe123",
       },
       email: {
         type: "string",

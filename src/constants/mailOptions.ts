@@ -3,7 +3,7 @@ import serverConfig from "#src/config/serverConfig";
 import { createTransport, Transporter } from "nodemailer";
 import { MailOptions } from "nodemailer/lib/sendmail-transport";
 
-const emailSender = serverConfig.emailSender;
+const emailSender = serverConfig.EMAIL_SENDER;
 
 /**
  * Generates mail options object for different email types.

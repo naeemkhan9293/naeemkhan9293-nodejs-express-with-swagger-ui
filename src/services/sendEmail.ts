@@ -1,15 +1,16 @@
 import { createTransport } from "nodemailer";
 import { MailOptions } from "nodemailer/lib/json-transport";
+import serverConfig from "#src/config/serverConfig";
 
 const transporter = createTransport({
   service: "gmail",
   pool: true,
   auth: {
     type: "OAuth2",
-    user: "realemail@gmail.com",
-    clientId: "",
-    clientSecret: "",
-    refreshToken: "",
+    user: serverConfig.EMAIL_SENDER,
+    clientId: serverConfig.GOOGLE_CLIENT_ID,
+    clientSecret: serverConfig.GOOGLE_CLIENT_SECRET,
+    refreshToken: serverConfig.GOOGLE_REFRESH_TOKEN,
   },
 });
 

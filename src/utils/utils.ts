@@ -39,5 +39,3 @@ export const generateOtpToken = () => {
   expiresAt.setMinutes(expiresAt.getMinutes() + 30);
   return { otp, expiresAt };
 };
-
-generateOtpToken();

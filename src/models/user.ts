@@ -12,6 +12,7 @@ const userSchema = new Schema<IUser>(
     role: { type: String, required: true },
     avatar: { type: String, required: false },
     phone: { type: String, required: false },
+    verified: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

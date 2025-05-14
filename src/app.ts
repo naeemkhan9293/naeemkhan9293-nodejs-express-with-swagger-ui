@@ -7,6 +7,12 @@ import { setupSwagger } from "#src/swagger";
 import routesIndex from "#src/routes/index";
 import errorHandler from "./middleware/errorHandler";
 
+import dotenv from "dotenv";
+import connectDB from "./config/db";
+dotenv.config();
+
+connectDB();
+
 const app = express();
 const server = createServer(app);
 
@@ -15,7 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev", { stream }));
 
+
 if (process.env.NODE_ENV !== "production") {
+  logger.info("Request logger enabled");
   app.use(requestLogger);
 }
 // Setup Swagger

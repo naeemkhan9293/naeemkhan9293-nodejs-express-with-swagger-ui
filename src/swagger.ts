@@ -2,6 +2,7 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
 import userSchema from "./schema/userSchema";
+import otpSchema from "./schema/otpSchema";
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -28,6 +29,7 @@ const swaggerDefinition = {
   components: {
     schemas: {
       ...userSchema,
+      ...otpSchema,
     },
   },
 };
