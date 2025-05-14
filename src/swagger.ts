@@ -3,6 +3,7 @@ import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
 import userSchema from "./schema/userSchema";
 import otpSchema from "./schema/otpSchema";
+import serverConfig from "./config/serverConfig";
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -67,12 +68,11 @@ const setupSwagger = (app: Express): void => {
   const swaggerUiOptions = {
     explorer: true,
     swaggerOptions: {
-      persistAuthorization: true, // Keep authorization data when browser is refreshed
-      docExpansion: "none", // Collapse all endpoints by default
-      filter: true, // Enable filtering
-      tagsSorter: "alpha", // Sort tags alphabetically
-      operationsSorter: "alpha", // Sort operations alphabetically
-      // Function to intercept the login response and set the bearer token
+      persistAuthorization: true,
+      docExpansion: "none",
+      filter: false,
+      tagsSorter: "alpha",
+      operationsSorter: "alpha",
       responseInterceptor: (res: any) => {
         if (
           res.url.endsWith("/api/users/login") &&
