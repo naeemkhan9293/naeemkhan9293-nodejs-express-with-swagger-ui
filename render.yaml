@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: nodejs-express-with-swagger-ui
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # The following environment variables should be set in the Render dashboard
+      # for security reasons
+      - key: MONGODB_URI
+        sync: false
+      - key: REFRESH_TOKEN_SECRET
+        sync: false
+      - key: ACCESS_TOKEN_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REFRESH_TOKEN
+        sync: false
+      - key: EMAIL_SENDER
+        sync: false

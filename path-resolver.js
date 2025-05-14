@@ -1,9 +1,9 @@
 // This file is used to register path aliases for the compiled code
-import { register } from 'tsconfig-paths';
+const tsConfigPaths = require("tsconfig-paths");
 
-register({
-  baseUrl: '.',
+tsConfigPaths.register({
+  baseUrl: ".",
   paths: {
-    '#src/*': ['./dist/*']
-  }
+    "#src/*": ["./dist/*"],
+  },
 });

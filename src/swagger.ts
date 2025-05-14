@@ -21,7 +21,16 @@ const swaggerDefinition = {
       url: "https://opensource.org/licenses/MIT",
     },
   },
-  servers: [{ url: "http://localhost:5000" }],
+  servers: [
+    {
+      url:
+        process.env.NODE_ENV === "production"
+          ? "https://nodejs-express-with-swagger-ui.onrender.com"
+          : "http://localhost:5000",
+      description:
+        process.env.NODE_ENV === "production" ? "Production server" : "Development server",
+    },
+  ],
   tags: [
     {
       name: "General",
