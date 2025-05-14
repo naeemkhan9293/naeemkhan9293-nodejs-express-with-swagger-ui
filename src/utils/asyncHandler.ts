@@ -18,7 +18,7 @@ import { Request, Response, NextFunction, RequestHandler } from "express";
 function asyncHandler(
   fn: (req: Request, res: Response, next: NextFunction) => Promise<any>
 ): RequestHandler {
-  return async (req, res, next) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       await fn(req, res, next);
     } catch (err) {
