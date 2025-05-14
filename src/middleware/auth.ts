@@ -32,14 +32,12 @@ declare global {
  */
 const auth = async (req: Request, _res: Response, next: NextFunction) => {
   try {
-    // Get token from header
+
     const authHeader = req.headers.authorization;
-    
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       throw new UnauthorizedError("No token provided. Authorization denied.");
     }
     
-    // Extract token from Bearer format
     const token = authHeader.split(" ")[1];
     
     if (!token) {
@@ -47,17 +45,14 @@ const auth = async (req: Request, _res: Response, next: NextFunction) => {
     }
     
     try {
-      // Verify token
       const decoded = jwt.verify(token, serverConfig.accessTokenSecret) as DecodedToken;
       
-      // Get user from database
       const user = await userRepos.getUserById(new Types.ObjectId(decoded.id));
       
       if (!user) {
         throw new UnauthorizedError("User not found. Authorization denied.");
       }
       
-      // Add user to request object
       req.user = user;
       
       next();

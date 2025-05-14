@@ -76,10 +76,9 @@ const createRefreshToken = async (
   refreshToken: string,
   expiresAt: Date
 ): Promise<IToken> => {
-  // Hash the token before storing it
+  
   const tokenHash = await hashToken(refreshToken);
 
-  // Generate a unique verification token for the refresh token
   // This is not sent to the client but used internally for token management
   const verificationToken = crypto.randomBytes(16).toString("hex");
 
