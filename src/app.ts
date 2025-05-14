@@ -6,7 +6,6 @@ import { requestLogger } from "#src/middleware/requestLogger";
 import { setupSwagger } from "#src/swagger";
 import routesIndex from "#src/routes/index";
 import errorHandler from "./middleware/errorHandler";
-import path from "path";
 
 import dotenv from "dotenv";
 import connectDB from "./config/db";
@@ -22,9 +21,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev", { stream }));
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, "public")));
-
 if (process.env.NODE_ENV !== "production") {
   logger.info("Request logger enabled");
   app.use(requestLogger);
@@ -32,11 +28,6 @@ if (process.env.NODE_ENV !== "production") {
 
 // Setup Swagger
 setupSwagger(app);
-
-// Custom Swagger UI page
-app.get("/swagger", (_req, res) => {
-  res.sendFile(path.join(__dirname, "public", "swagger-custom.html"));
-});
 
 app.get("/", (_req, res) => {
   res.redirect("/api-docs");
