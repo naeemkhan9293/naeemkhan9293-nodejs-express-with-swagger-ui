@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --config nodemon.json",
-    "start": "node -r tsconfig-paths/register dist/index.js",
+    "start": "node -r ./path-resolver.js dist/index.js",
     "build": "rimraf dist && tsc",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
