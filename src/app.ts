@@ -38,6 +38,10 @@ app.get("/swagger", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "swagger-custom.html"));
 });
 
+app.get("/", (_req, res) => {
+  res.redirect("/api-docs");
+});
+
 app.use("/api", routesIndex);
 app.use(errorHandler);
 
