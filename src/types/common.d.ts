@@ -19,7 +19,11 @@ export interface IUser extends Document {
 interface IToken extends Document {
   userId: mongoose.Types.ObjectId;
   tokenHash: string;
-  type: "email_verification" | "password_reset" | "otp" | string;
+  verificationToken: string;
+  type: "email_verification" | "password_reset" | "otp" | "refresh_token" | string;
   expiresAt: Date;
   createdAt: Date;
+  verificationAttempts: number;
+  lastAttemptAt: Date | null;
+  isBlocked: boolean;
 }

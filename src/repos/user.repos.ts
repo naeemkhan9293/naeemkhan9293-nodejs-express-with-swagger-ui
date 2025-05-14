@@ -10,6 +10,15 @@ const getUserByEmail = async (email: string): Promise<IUser | null> => {
   return User.findOne({ email });
 };
 
+/**
+ * Get a user by email with password included for authentication
+ * @param email - The email of the user
+ * @returns The user document with password or null if not found
+ */
+const getUserByEmailWithPassword = async (email: string): Promise<IUser | null> => {
+  return User.findOne({ email }).select("+password");
+};
+
 const getUserByUsername = async (username: string): Promise<IUser | null> => {
   return User.findOne({ username });
 };
@@ -37,6 +46,7 @@ const getAllUsers = async (): Promise<IUser[]> => {
 const userRepos = {
   getUserById,
   getUserByEmail,
+  getUserByEmailWithPassword,
   getUserByUsername,
   createUser,
   updateUser,

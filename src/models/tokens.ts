@@ -13,10 +13,16 @@ const TokenSchema = new Schema<IToken>({
     required: true,
     unique: true,
   },
+  verificationToken: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true,
+  },
   type: {
     type: String,
     required: true,
-    enum: ["email_verification", "password_reset", "otp"],
+    enum: ["email_verification", "password_reset", "otp", "refresh_token"],
   },
   expiresAt: {
     type: Date,
@@ -27,6 +33,18 @@ const TokenSchema = new Schema<IToken>({
     type: Date,
     default: Date.now,
     index: true,
+  },
+  verificationAttempts: {
+    type: Number,
+    default: 0,
+  },
+  lastAttemptAt: {
+    type: Date,
+    default: null,
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false,
   },
 });
 

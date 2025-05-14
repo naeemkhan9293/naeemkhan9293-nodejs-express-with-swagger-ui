@@ -13,6 +13,7 @@ const userSchema = new Schema<IUser>(
     avatar: { type: String, required: false },
     phone: { type: String, required: false },
     verified: { type: Boolean, default: false },
+    refreshToken: { type: String, required: false, select: false },
   },
   { timestamps: true }
 );

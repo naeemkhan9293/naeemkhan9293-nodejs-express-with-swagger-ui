@@ -33,9 +33,23 @@ const generateOtp = () => {
   return Math.floor(100000 + Math.random() * 900000);
 };
 
+/**
+ * Generates a short verification token for use in URLs
+ * @returns A 12-character random string
+ */
+export const generateShortVerificationToken = (): string => {
+  return crypto.randomBytes(6).toString("hex");
+};
+
+/**
+ * Generates an OTP token with a 10-minute expiration time
+ * @returns An object containing the OTP, verification token, and expiration date
+ */
 export const generateOtpToken = () => {
   const otp = generateOtp();
+  const verificationToken = generateShortVerificationToken();
   const expiresAt = new Date();
-  expiresAt.setMinutes(expiresAt.getMinutes() + 30);
-  return { otp, expiresAt };
+  // 10-minute expiration for better security
+  expiresAt.setMinutes(expiresAt.getMinutes() + 10);
+  return { otp, verificationToken, expiresAt };
 };

@@ -25,11 +25,27 @@ const swaggerDefinition = {
       name: "General",
       description: "General endpoints",
     },
+    {
+      name: "Users",
+      description: "User management endpoints",
+    },
+    {
+      name: "Profile",
+      description: "User profile endpoints",
+    },
   ],
   components: {
     schemas: {
       ...userSchema,
       ...otpSchema,
+    },
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        description: "Enter your JWT token in the format: Bearer {token}",
+      },
     },
   },
 };
@@ -47,8 +63,38 @@ const swaggerSpec = swaggerJSDoc(options);
  * @param {Express} app - Express application
  */
 const setupSwagger = (app: Express): void => {
+  // Swagger UI options
+  const swaggerUiOptions = {
+    explorer: true,
+    swaggerOptions: {
+      persistAuthorization: true, // Keep authorization data when browser is refreshed
+      docExpansion: "none", // Collapse all endpoints by default
+      filter: true, // Enable filtering
+      tagsSorter: "alpha", // Sort tags alphabetically
+      operationsSorter: "alpha", // Sort operations alphabetically
+      // Function to intercept the login response and set the bearer token
+      responseInterceptor: (res: any) => {
+        if (
+          res.url.endsWith("/api/users/login") &&
+          res.status === 200 &&
+          res.data &&
+          res.data.data &&
+          res.data.data.accessToken
+        ) {
+          const accessToken = res.data.data.accessToken;
+          // This will be executed in the browser
+          const authorizationEvent = new CustomEvent("swaggerAuthorization", {
+            detail: { token: accessToken },
+          });
+          window.dispatchEvent(authorizationEvent);
+        }
+        return res;
+      },
+    },
+  };
+
   // Swagger page
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
 
   // Docs in JSON format
   app.get("/api-docs.json", (_req, res) => {

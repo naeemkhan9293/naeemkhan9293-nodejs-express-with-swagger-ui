@@ -147,6 +147,17 @@ class ForbiddenError extends AppError {
 }
 
 /**
+ * Verification Error - 400
+ * Specialized error for account verification failures
+ */
+class VerificationError extends AppError {
+  constructor(message = "Verification failed", details?: any) {
+    super(message, 400, true, "warn");
+    if (details) this.errors = details;
+  }
+}
+
+/**
  * Error type checking functions
  */
 export const errorCheckers = {
@@ -230,4 +241,5 @@ export {
   UnsupportedFileTypeError,
   BadRequestError,
   ForbiddenError,
+  VerificationError,
 };
