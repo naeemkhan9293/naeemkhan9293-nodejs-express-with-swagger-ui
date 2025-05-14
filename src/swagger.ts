@@ -4,6 +4,7 @@ import { Express } from "express";
 import userSchema from "./schema/userSchema";
 import otpSchema from "./schema/otpSchema";
 import serverConfig from "./config/serverConfig";
+import { logger } from "./config/logger";
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -101,8 +102,7 @@ const setupSwagger = (app: Express): void => {
     res.setHeader("Content-Type", "application/json");
     res.send(swaggerSpec);
   });
-
-  console.log("Swagger UI initialized at /api-docs");
+  logger.info("Swagger UI initialized at /api-docs");
 };
 
 export { setupSwagger };
